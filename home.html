@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+      body {
+        background: lightskyblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 100vh;
+        width: 100vw;
+      }
+      .box {
+        background-color: pink;
+        padding: 100px;
+        border-radius: 50%;
+        border: 10px solid black;
+      }
+    </style>
+
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div class="box">
+      <div class="info">
+        <h1 class="location">{%location%},{%country%}</h1>
+        <h2 id="date">MON | FEB 20 | 12:49 AM</h2>
+        <h1 class="temp">{%tempval%}</h1>
+        <h3 class="tempMin_Max">Min:{%tempMin%} | Max:{%tempMax%}C</h3>
+        <h3 id="weatherCond">Description: {%status%}</h3>
+      </div>
+    </div>
+    <script>
+      const curDate = document.getElementById("date");
+      let weathercond = document.getElementById("weatherCond");
+
+      const currentDay = () => {
+        const weekday = ["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"];
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sept",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        let currentTime = new Date();
+        let month = currentTime.getMonth();
+        let dat = currentTime.getDate();
+        if (dat < 10) {
+          dat = "0" + dat;
+        }
+        let hours = currentTime.getHours();
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        let minutes = currentTime.getMinutes();
+        let apmpm = "AM";
+        if (hours > 11) {
+          apmpm = "PM";
+          if (hours > 12) hours -= 12;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+
+        const day = weekday[currentTime.getDay()];
+        const woo = `${months[month]} ${dat}`;
+        const soo = `${hours}:${minutes} ${apmpm}`;
+        return `${day} | ${woo} | ${soo} `;
+      };
+      curDate.innerHTML = currentDay();
+
+      currentDay();
+    </script>
+  </body>
+</html>
